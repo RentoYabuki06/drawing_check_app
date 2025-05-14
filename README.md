@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Drawing Check App
 
-## Getting Started
+## プロジェクト概要
 
-First, run the development server:
+Drawing Check App（図面チェックアプリ）は、設計図面の自動チェックを行うNextJSベースのウェブアプリケーションです。このアプリを使用することで、以下の図面チェックを効率的に実行できます：
+
+- 部品マッピングチェック
+- 部品対応表チェック
+- 寸法抜け漏れチェック
+- 自社規格チェック
+
+## 機能
+
+- PDFファイルのアップロードと画像への変換
+- 図面のトリミング機能
+- AIによる複数の図面チェック実行
+- 結果の詳細レポートと視覚化
+- ズーム可能な結果ビューア
+
+## インストール方法
 
 ```bash
+# リポジトリのクローン
+git clone https://github.com/yourusername/drawing_check_app.git
+cd drawing_check_app
+
+# 依存パッケージのインストール
+npm install
+
+# 開発サーバーの起動
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 使用技術
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **フロントエンド**: React, Next.js, Material UI
+- **状態管理**: React Hook Form
+- **PDF処理**: PDF.js
+- **画像操作**: react-cropper, react-zoom-pan-pinch
+- **AIサービス**: AWS Bedrock (Claude)
+- **インフラ**: AWS Amplify
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 使い方
 
-## Learn More
+1. **アップロード・検査項目選択**
+   - 図面PDFをアップロード
+   - 必要なチェック項目を選択（複数選択可能）
+   - 自社規格チェックを選択した場合は規格書PDFも必要
 
-To learn more about Next.js, take a look at the following resources:
+2. **図面トリミング**
+   - 必要な箇所（部品表、部品配置箇所など）をトリミング
+   - 選択したチェック項目に応じて必要なトリミングが示されます
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **結果出力**
+   - 「送信」ボタンをクリックして検査を開始
+   - 検査結果が詳細に表示されます
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 開発情報
 
-## Deploy on Vercel
+### 実行スクリプト
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+# 開発サーバー起動（Turbopack使用）
+npm run dev
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# プロダクションビルド
+npm run build
+
+# プロダクションサーバー起動
+npm run start
+
+# リント実行
+npm run lint
+```
+
+### プロジェクト構成
+
+```
+src/
+  app/            # Next.jsアプリケーションページ
+  components/     # React UI コンポーネント
+    Zumen/        # 図面関連コンポーネント
+      templates/  # 図面処理テンプレート
+  const/          # 定数ファイル
+amplify/          # AWS Amplify関連設定
+public/           # 静的ファイル
+```
+
